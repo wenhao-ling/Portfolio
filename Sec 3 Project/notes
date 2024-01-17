@@ -1,0 +1,9 @@
+One of the problems with the old code was that when I went into the puzzle popup screen, the puzzle elements would start flickering on and off, which bothered me a lot, as well as created a bug in the puzzle's hitbox
+For example, when you clicked the puzzle in the correct order, sometimes it would not update and show up as it will not register the clicks when the puzzle is flickered off
+
+After some research, I found out that it was due to the code updating too many times within each frame uneccesarily. However, I could figure out how to solve the issue as there were 2 lines of code that refreshed and updated the screen
+pygame.display.flip() as well as pygame.display.update()
+
+After figuring this out, it was easy to debug it as I found out that I had used multiple code that updated the screen per frame as the user-defined functions that I made included these lines of code, which also appeared outside of the functions in the main loop. 
+
+After removing the excess lines of code, the flickering stopped and the problem was resolved

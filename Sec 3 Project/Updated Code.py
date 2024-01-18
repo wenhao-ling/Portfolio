@@ -32,7 +32,7 @@ POPUP_HEIGHT = 200
 PUZZLE1_X = 300
 PUZZLE1_Y = 0
 PUZZLE1_WIDTH = 60
-PUZZLE1_HEIGHT = 30
+PUZZLE1_HEIGHT = 40
 PUZZLE2_X = 340
 PUZZLE2_Y = 290
 PUZZLE2_WIDTH = 80
@@ -49,7 +49,7 @@ colour_door_rect = (255,255,255)
 xbutton = pygame.image.load("xbutton.png")
 puzzle1_rect = pygame.Rect(PUZZLE1_X,PUZZLE1_Y,PUZZLE1_WIDTH,PUZZLE1_HEIGHT)
 # colour, correct order = 132
-puzzle1_square1 = pygame.Rect(150,125,50,50)
+puzzle1_square1 = pygame.Rect(150,125,50,50) # rect(x, y, width, height)
 puzzle1_square2 = pygame.Rect(225,125,50,50)
 puzzle1_square3 = pygame.Rect(300,125,50,50)
 puzzle1_square1_pressed = False
@@ -57,17 +57,17 @@ puzzle1_square2_pressed = False
 puzzle1_square3_pressed = False
 puzzle2_rect = pygame.Rect(PUZZLE2_X,PUZZLE2_Y,PUZZLE2_WIDTH,PUZZLE2_HEIGHT)
 # width, correct order = 321 
-puzzle2_square1 = pygame.Rect(150,125,30,50)
-puzzle2_square2 = pygame.Rect(210,125,70,50)
-puzzle2_square3 = pygame.Rect(300,125,50,50)
+puzzle2_square1 = pygame.Rect(150,125,40,50)
+puzzle2_square2 = pygame.Rect(210,125,80,50)
+puzzle2_square3 = pygame.Rect(300,125,60,50)
 puzzle2_square1_pressed = False
 puzzle2_square2_pressed = False
 puzzle2_square3_pressed = False
 puzzle3_rect = pygame.Rect(PUZZLE3_X,PUZZLE3_Y,PUZZLE3_WIDTH,PUZZLE3_HEIGHT)
 # height, correct order = 231
-puzzle3_square1 = pygame.Rect(150,125,50,50)
-puzzle3_square2 = pygame.Rect(225,125,50,60)
-puzzle3_square3 = pygame.Rect(300,125,50,40)
+puzzle3_square1 = pygame.Rect(150,125,50,30)
+puzzle3_square2 = pygame.Rect(225,125,50,40)
+puzzle3_square3 = pygame.Rect(300,125,50,20)
 puzzle3_square1_pressed = False
 puzzle3_square2_pressed = False
 puzzle3_square3_pressed = False
@@ -158,10 +158,10 @@ while running:
   if inPopup: 
     if isClickingX():
       if isTouchingPuzzle1():
-        sprite.y += 10
+        sprite.y += 10   # sprite not touching puzzle
         refreshHitbox()
       if isTouchingPuzzle2() or isTouchingPuzzle3():
-        sprite.y -= 10
+        sprite.y -= 10   
         refreshHitbox()
       inPopup = False # exits popup
   

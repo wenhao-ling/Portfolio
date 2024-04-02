@@ -6,4 +6,4 @@ pygame.display.flip() as well as pygame.display.update()
 
 After figuring this out, it was easy to debug it as I found out that I had used multiple code that updated the screen per frame as the user-defined functions that I made included these lines of code, which also appeared outside of the functions in the main loop. 
 
-After removing the excess lines of code, the flickering stopped and the problem was resolved
+After removing the excess lines of code, the flickering stopped and the problem was resolved :)

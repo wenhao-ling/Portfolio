@@ -1,11 +1,10 @@
 import pygame
 from pygame.locals import QUIT
-import time
 import random
 
 pygame.init()
 
-logo = pygame.image.load("card back black.png")
+logo = pygame.image.load(r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\card back black.png")
 pygame.display.set_icon(logo)
 pygame.display.set_caption('Blackjack')
 text_font = pygame.font.SysFont("Arial", 20) 
@@ -26,7 +25,7 @@ SKIP_HEIGHT = 80
 SKIP_X = 750
 SKIP_Y = 450
 
-cards = { # change the file path to your computer's download path for each file 
+cards = {
   1 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\2_of_clubs.png",   # r before the string in order to make the string raw (so the \ does not interfere with the image path)
   2 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\2_of_diamonds.png",
   3 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\2_of_hearts.png", 
@@ -86,12 +85,10 @@ cardlist = []
 for i in range(len(cards)): 
   cardlist.append(i+1)
 
-deck = pygame.image.load("card back black.png")
+deck = pygame.image.load(r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\card back black.png")
 horizontaldeck = pygame.transform.rotate(deck, 90)
-deck_rect = pygame.Rect(DECK_X, DECK_Y, DECK_WIDTH, DECK_HEIGHT)
 hit_rect = pygame.Rect(HIT_X, HIT_Y, HIT_WIDTH, HIT_HEIGHT)
 skip_rect = pygame.Rect(SKIP_X, SKIP_Y, SKIP_WIDTH, SKIP_HEIGHT)
-colour_deck_rect = (255,255,255)
 
 bot1 = 0
 bot2 = 0
@@ -123,29 +120,32 @@ won = False
 def redrawScreen(): 
   screen.fill((255,255,255))
   
-  pygame.draw.rect(screen,colour_deck_rect,deck_rect) # draw hitbox under door image
-  screen.blit(pygame.transform.scale(deck,(DECK_WIDTH, DECK_HEIGHT)), (DECK_X,DECK_Y)) # draw door image
+  pygame.draw.rect(screen,(0,0,0),(DECK_X - 5, DECK_Y - 5, DECK_WIDTH + 10, DECK_HEIGHT + 10))
+  screen.blit(pygame.transform.scale(deck,(DECK_WIDTH, DECK_HEIGHT)), (DECK_X,DECK_Y)) # draw deck image
 
   pygame.draw.rect(screen,(64,137,255),hit_rect) # draw hitbox and rectangle of hit and subsequently skip buttons
   pygame.draw.rect(screen,(64,137,255),skip_rect)
-  drawText("HIT", text_font, (0,0,0), 150, 480) # draw text for buttons
-  drawText("SKIP", text_font, (0,0,0), 800, 480)
+  drawText("HIT", text_font, (0,0,0), 160, 480) # draw text for buttons
+  drawText("SKIP", text_font, (0,0,0), 805, 480)
 
   if not bot1died: 
     y = 50
     for i in range(bot1num): 
+      pygame.draw.rect(screen, (0,0,0), (-100,y + i*50 - 5, DECK_HEIGHT+5, DECK_WIDTH+10))
       screen.blit(pygame.transform.scale(horizontaldeck,(DECK_HEIGHT,DECK_WIDTH)), (-100,y + i*50)) # draw bot1 cards (rotated)
   
   x = 350
   count = 0
   for i in playercardlist: 
     card = pygame.image.load(i)
+    pygame.draw.rect(screen, (0,0,0), (x + count*100 -5,500 - 5, DECK_WIDTH+10, DECK_HEIGHT+10), border_radius = 10)
     screen.blit(pygame.transform.scale(card,(DECK_WIDTH,DECK_HEIGHT)), (x + count*100,500)) # draw player cards
     count += 1
 
   if not bot2died: 
     y = 50
     for i in range(bot2num): 
+      pygame.draw.rect(screen, (0,0,0), (880 - 5,y + i*50 - 5, DECK_HEIGHT+5, DECK_WIDTH+10))
       screen.blit(pygame.transform.scale(horizontaldeck,(DECK_HEIGHT,DECK_WIDTH)), (880,y + i*50)) # draw bot2 cards 
   
   pygame.display.update()
@@ -219,7 +219,8 @@ while running:
     playercardlist.append(cards[playercard])
 
     started = False
-    time.sleep(0.5)
+    redrawScreen()
+    pygame.time.wait(500)
 
   else: 
     if not playerturn and not lost and not won and not tied and not bot1died and not bot1win: 
@@ -228,6 +229,8 @@ while running:
       if bot1 < 17: 
         bot1card = random.randint(1,52)
         bot1num += 1
+        redrawScreen()
+        pygame.time.wait(500)
         while bot1card not in cardlist: 
           bot1card = random.randint(1,52) # get a card not taken
         cardlist.remove(bot1card)
@@ -246,6 +249,8 @@ while running:
           if random.randint(0,1) == 1: 
             bot1card = random.randint(1,52)
             bot1num += 1
+            redrawScreen()
+            pygame.time.wait(500)
             while bot1card not in cardlist: 
               bot1card = random.randint(1,52) # get a card not taken
             cardlist.remove(bot1card)
@@ -275,7 +280,6 @@ while running:
         bot1died = True
         print("bot1died")
       redrawScreen()
-      #time.sleep(0.5)
       
       if bot1 == 21: 
         bot1win = True
@@ -310,8 +314,8 @@ while running:
         
         playercardlist.append(cards[playercard])
         playerturn = False
-        time.sleep(0.5)
         redrawScreen()
+        pygame.time.wait(500)
 
       elif clickingSkip(): 
         print("clicking skip")
@@ -371,7 +375,7 @@ while running:
         print("bot2died")
 
       redrawScreen()
-      #time.sleep(0.5)
+      pygame.time.wait(500)
   
   if not playerturn and not lost and not won and not tied: 
     print("-------------------------------------------------------------------------------------------------")
@@ -411,6 +415,7 @@ while running:
       pygame.display.flip()
       key = pygame.key.get_pressed()
       if key[pygame.K_r]:
+        print("R Pressed")
         cardlist = []
         for i in range(len(cards)): 
           cardlist.append(i+1)

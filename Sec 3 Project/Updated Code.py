@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import QUIT
-import time
+import time, os
+
+os.chdir(r'C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS') # copy and paste your path name here!
 
 pygame.init()
 
@@ -198,6 +200,8 @@ while running:
       drawText("you don't have a key", text_font, (0,0,0), 140, 100)
       pygame.display.flip() 
       haveTouchedDoorOnce = True
+
+  print(pygame.mouse.get_pos())
 
   if isTouchingPuzzle1():
     inPopup = True

@@ -1,10 +1,12 @@
 import pygame
 from pygame.locals import QUIT
-import random
+import random, os
+
+os.chdir(r'C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3') # insert your own path here!
 
 pygame.init()
 
-logo = pygame.image.load(r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\card back black.png")
+logo = pygame.image.load(r"card back black.png")
 pygame.display.set_icon(logo)
 pygame.display.set_caption('Blackjack')
 text_font = pygame.font.SysFont("Arial", 20) 
@@ -26,58 +28,58 @@ SKIP_X = 750
 SKIP_Y = 450
 
 cards = {
-  1 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\2_of_clubs.png",   # r before the string in order to make the string raw (so the \ does not interfere with the image path)
-  2 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\2_of_diamonds.png",
-  3 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\2_of_hearts.png", 
-  4 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\2_of_spades.png", 
-  5 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\3_of_clubs.png",
-  6 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\3_of_diamonds.png",
-  7 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\3_of_hearts.png", 
-  8 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\3_of_spades.png", 
-  9 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\4_of_clubs.png",
-  10 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\4_of_diamonds.png",
-  11 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\4_of_hearts.png", 
-  12 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\4_of_spades.png", 
-  13 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\5_of_clubs.png",
-  14 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\5_of_diamonds.png",
-  15 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\5_of_hearts.png", 
-  16 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\5_of_spades.png", 
-  17 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\6_of_clubs.png",
-  18 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\6_of_diamonds.png",
-  19 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\6_of_hearts.png", 
-  20 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\6_of_spades.png", 
-  21 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\7_of_clubs.png",
-  22 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\7_of_diamonds.png",
-  23 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\7_of_hearts.png", 
-  24 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\7_of_spades.png", 
-  25 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\8_of_clubs.png",
-  26 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\8_of_diamonds.png",
-  27 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\8_of_hearts.png", 
-  28 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\8_of_spades.png", 
-  29 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\9_of_clubs.png",
-  30 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\9_of_diamonds.png",
-  31 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\9_of_hearts.png", 
-  32 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\9_of_spades.png", 
-  33 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\10_of_clubs.png",
-  34 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\10_of_diamonds.png",
-  35 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\10_of_hearts.png", 
-  36 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\10_of_spades.png", 
-  37 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\ace_of_clubs.png", 
-  38 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\ace_of_diamonds.png",
-  39 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\ace_of_hearts.png", 
-  40 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\ace_of_spades.png",
-  41 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\jack_of_clubs2.png",
-  42 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\jack_of_diamonds2.png",
-  43 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\jack_of_hearts2.png",
-  44 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\jack_of_spades2.png",
-  45 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\king_of_clubs2.png", 
-  46 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\king_of_diamonds2.png",
-  47 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\king_of_hearts2.png", 
-  48 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\king_of_spades2.png",
-  49 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\queen_of_clubs2.png",
-  50 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\queen_of_diamonds2.png",
-  51 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\queen_of_hearts2.png",
-  52 : r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\PNG-cards-1.3\queen_of_spades2.png",
+  1 : r"2_of_clubs.png",   # r before the string in order to make the string raw (so the \ does not interfere with the image path)
+  2 : r"2_of_diamonds.png",
+  3 : r"2_of_hearts.png", 
+  4 : r"2_of_spades.png", 
+  5 : r"3_of_clubs.png",
+  6 : r"3_of_diamonds.png",
+  7 : r"3_of_hearts.png", 
+  8 : r"3_of_spades.png", 
+  9 : r"4_of_clubs.png",
+  10 : r"4_of_diamonds.png",
+  11 : r"4_of_hearts.png", 
+  12 : r"4_of_spades.png", 
+  13 : r"5_of_clubs.png",
+  14 : r"5_of_diamonds.png",
+  15 : r"5_of_hearts.png", 
+  16 : r"5_of_spades.png", 
+  17 : r"6_of_clubs.png",
+  18 : r"6_of_diamonds.png",
+  19 : r"6_of_hearts.png", 
+  20 : r"6_of_spades.png", 
+  21 : r"7_of_clubs.png",
+  22 : r"7_of_diamonds.png",
+  23 : r"7_of_hearts.png", 
+  24 : r"7_of_spades.png", 
+  25 : r"8_of_clubs.png",
+  26 : r"8_of_diamonds.png",
+  27 : r"8_of_hearts.png", 
+  28 : r"8_of_spades.png", 
+  29 : r"9_of_clubs.png",
+  30 : r"9_of_diamonds.png",
+  31 : r"9_of_hearts.png", 
+  32 : r"9_of_spades.png", 
+  33 : r"10_of_clubs.png",
+  34 : r"10_of_diamonds.png",
+  35 : r"10_of_hearts.png", 
+  36 : r"10_of_spades.png", 
+  37 : r"ace_of_clubs.png", 
+  38 : r"ace_of_diamonds.png",
+  39 : r"ace_of_hearts.png", 
+  40 : r"ace_of_spades.png",
+  41 : r"jack_of_clubs2.png",
+  42 : r"jack_of_diamonds2.png",
+  43 : r"jack_of_hearts2.png",
+  44 : r"jack_of_spades2.png",
+  45 : r"king_of_clubs2.png", 
+  46 : r"king_of_diamonds2.png",
+  47 : r"king_of_hearts2.png", 
+  48 : r"king_of_spades2.png",
+  49 : r"queen_of_clubs2.png",
+  50 : r"queen_of_diamonds2.png",
+  51 : r"queen_of_hearts2.png",
+  52 : r"queen_of_spades2.png",
 }
 index = len(cards[1]) - 14
 
@@ -85,7 +87,7 @@ cardlist = []
 for i in range(len(cards)): 
   cardlist.append(i+1)
 
-deck = pygame.image.load(r"C:\Users\lingw\OneDrive\Documents\Visual Studio Code\Python VS\card back black.png")
+deck = pygame.image.load(r"card back black.png")
 horizontaldeck = pygame.transform.rotate(deck, 90)
 hit_rect = pygame.Rect(HIT_X, HIT_Y, HIT_WIDTH, HIT_HEIGHT)
 skip_rect = pygame.Rect(SKIP_X, SKIP_Y, SKIP_WIDTH, SKIP_HEIGHT)
@@ -292,11 +294,12 @@ while running:
       pygame.display.flip() 
       print("playerround")
     
-    if bot1died: 
+    if bot1died and not lost and not won and not tied: 
       playerturn = True
 
     # player turn
     if playerturn and not lost and not won and not tied and not bot1win: 
+      print('player turn')
       if clickingHit(): 
         print("clicking hit")
         playercard = random.randint(1,52)
@@ -394,7 +397,8 @@ while running:
         won = True
       else:  
         lost = True
-  
+      playerturn = False
+
   if not playerturn: 
     if player > 21: 
       lost = True
